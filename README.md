@@ -64,7 +64,7 @@ I’m also the **Founder of RGAi**, an AI-driven initiative focused on automatio
 ---
 
 ## 🌐 Live Demo
-> Coming Soon: [YourPortfolioLinkHere](#)
+> Coming Soon: [https://melodious-figolla-806dce.netlify.app/home](#)
 
 ---
 
@@ -91,3 +91,4 @@ npm install
 
 # Run locally
 npm start
+
