@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Page</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            font-family: 'Arial', sans-serif;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        h1, h2 {
+            color: #FFD700;
+            text-shadow: 0 0 10px #FFD700,
+                         0 0 20px #FFD700,
+                         0 0 30px #FFD700;
+            animation: glow 2s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transform: translateZ(50px);
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #FFD700,
+                            0 0 20px #FFD700,
+                            0 0 30px #FFD700;
+            }
+            to {
+                text-shadow: 0 0 20px #FFD700,
+                            0 0 30px #FFD700,
+                            0 0 40px #FFD700;
+            }
+        }
+
+        h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        h2 {
+            font-size: 2em;
+            animation: float 3s ease-in-out infinite 0.5s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) translateZ(50px) rotateX(10deg); }
+            50% { transform: translateY(-20px) translateZ(50px) rotateX(-10deg); }
+            100% { transform: translateY(0px) translateZ(50px) rotateX(10deg); }
+        }
+
+        .button {
+            background: linear-gradient(145deg, #FFD700, #FFA500);
+            border: none;
+            border-radius: 25px;
+            box-shadow: 0 0 15px #FFD700,
+                       inset 0 0 15px rgba(255, 255, 255, 0.8);
+            padding: 20px 50px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #1a1a1a;
+            text-transform: uppercase;
+            margin-top: 30px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            letter-spacing: 2px;
+        }
+
+        .button:hover {
+            transform: translateY(-8px) scale(1.1) rotate(2deg);
+            box-shadow: 0 0 40px #FFD700,
+                       inset 0 0 20px rgba(255, 255, 255, 0.9);
+            letter-spacing: 4px;
+        }
+
+        .button:active {
+            transform: translateY(2px) scale(0.95);
+            box-shadow: 0 0 25px #FFD700;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 2s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        .name-highlight {
+            background: linear-gradient(120deg, #f1d537, #ffd500, #ffd503);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: nameGlow 10s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .name-highlight::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 5px;
+            bottom: -10px;
+            left: 0;
+            background: linear-gradient(90deg, transparent, #FFD700, transparent);
+            transform: scaleX(0);
+            animation: underlineAnim 10s ease-in-out infinite;
+        }
+
+        @keyframes underlineAnim {
+            0%, 100% { transform: scaleX(0); }
+            50% { transform: scaleX(1); }
+        }
+
+        @keyframes nameGlow {
+            0%, 100% { filter: drop-shadow(0 0 5px #FFD700) brightness(0.5); }
+            50% { filter: drop-shadow(0 0 8px #FFA500) brightness(1.03); }
+        }
+
+        </style>
+        </head>
+        <body>
+        <h1><span class="name-highlight">Gauresh Khairnar</span></h1>
+        <h2><span class="name-highlight">Owner Of RGAi</span></h2>
+        <a href="home.html">
+            <button class="button">Explore My Work</button>
+        </a>
+    <div id="cursor-circle" style="position: fixed; width: 20px; height: 20px; border: 2px solid rgba(75, 0, 130, 0.5); border-radius: 50%; pointer-events: none; z-index: 9999; mix-blend-mode: difference; transition: width 0.3s, height 0.3s, transform 0.1s;"></div>
+    <style>
+        .cursor-trail {
+            position: fixed;
+            width: 15px;
+            height: 15px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            pointer-events: none;
+            transition: opacity 0.8s;
+        }
+    </style>
+    <script>
+        const cursorCircle = document.getElementById('cursor-circle');
+        cursorCircle.style.background = 'rgba(255, 255, 255, 0.9)';
+        cursorCircle.style.boxShadow = '0 0 25px white, 0 0 50px white, 0 0 75px white';
+        cursorCircle.style.width = '15px';
+        cursorCircle.style.height = '15px';
+        cursorCircle.style.border = '2px solid rgba(255, 255, 255, 1)';
+        cursorCircle.style.backdropFilter = 'blur(4px)';
+
+        let trails = [];
+        const maxTrails = 15;
+        let lastX = 0;
+        let lastY = 0;
+        let isMoving = false;
+        let animationFrame;
+
+        function updateCursor(e) {
+            const x = e.clientX;
+            const y = e.clientY;
+            const speed = Math.hypot(x - lastX, y - lastY);
+            
+            if (speed < 1) return; // Don't create trails when barely moving
+
+            cursorCircle.style.left = `${x}px`;
+            cursorCircle.style.top = `${y}px`;
+            cursorCircle.style.transform = `translate(-50%, -50%) scale(${1 + speed * 0.01})`;
+
+            // Create particle effect instead of dots
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.left = `${x}px`;
+            trail.style.top = `${y}px`;
+            trail.style.background = `radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 70%)`;
+            trail.style.transform = 'translate(-50%, -50%) scale(0)';
+            trail.style.transition = 'all 0.5s ease-out';
+            document.body.appendChild(trail);
+
+            // Animate the particle
+            requestAnimationFrame(() => {
+                trail.style.transform = `translate(-50%, -50%) scale(${1 + speed * 0.05})`;
+                trail.style.opacity = '0';
+            });
+
+            // Remove the particle after animation
+            setTimeout(() => {
+                trail.remove();
+            }, 500);
+
+            lastX = x;
+            lastY = y;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            cancelAnimationFrame(animationFrame);
+            animationFrame = requestAnimationFrame(() => updateCursor(e));
+        });
+
+        document.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.cursor-trail').forEach(trail => trail.remove());
+        });
+
+        document.querySelectorAll('a, button').forEach(elem => {
+            elem.addEventListener('mouseenter', () => {
+                cursorCircle.style.transform = 'translate(-50%, -50%) scale(2)';
+                cursorCircle.style.boxShadow = '0 0 40px white, 0 0 80px white, 0 0 120px white';
+                cursorCircle.style.transition = 'transform 0.3s, box-shadow 0.3s';
+            });
+            
+            elem.addEventListener('mouseleave', () => {
+                cursorCircle.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursorCircle.style.boxShadow = '0 0 25px white, 0 0 50px white, 0 0 75px white';
+            });
+        });
+    </script>
+    <style>
+    /* Mobile / responsive adjustments */
+    @media (max-width: 768px) {
+        body {
+            height: auto;
+            padding: 40px 20px;
+            justify-content: flex-start;
+        }
+        h1 { font-size: 2.2em; transform: none !important; perspective: none; }
+        h2 { font-size: 1.2em; transform: none !important; perspective: none; }
+        .button {
+            padding: 14px 28px;
+            font-size: 18px;
+            border-radius: 18px;
+            box-shadow: 0 0 10px #FFD700, inset 0 0 8px rgba(255,255,255,0.6);
+        }
+        #cursor-circle { display: none !important; } /* hide desktop cursor circle on touch devices */
+    }
+
+    /* touch ripple style */
+    .touch-ripple {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        pointer-events: none;
+        transform: translate(-50%, -50%) scale(0);
+        background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.15) 40%, rgba(255,255,255,0) 60%);
+        mix-blend-mode: screen;
+        opacity: 1;
+        z-index: 9998;
+        transition: transform 450ms cubic-bezier(.2,.9,.2,1), opacity 450ms ease-out;
+    }
+
+    /* Respect reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+        * { animation: none !important; transition: none !important; }
+    }
+    </style>
+
+    <script>
+    (function(){
+        // Detect touch devices
+        const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+        const cursorCircle = document.getElementById('cursor-circle');
+
+        if (isTouch) {
+            // Hide desktop cursor visuals
+            if (cursorCircle) cursorCircle.style.display = 'none';
+
+            // Remove existing mouse trails if any
+            document.querySelectorAll('.cursor-trail').forEach(t => t.remove());
+
+            // Create touch ripple effect
+            function createRipple(x, y, size = 60) {
+                const ripple = document.createElement('div');
+                ripple.className = 'touch-ripple';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                document.body.appendChild(ripple);
+
+                // trigger animation
+                requestAnimationFrame(() => {
+                    ripple.style.transform = 'translate(-50%, -50%) scale(1.6)';
+                    ripple.style.opacity = '0';
+                });
+
+                // cleanup
+                setTimeout(() => {
+                    ripple.remove();
+                }, 500);
+            }
+
+            // Touch handlers: create one ripple for touchstart, small ones for touchmove
+            document.addEventListener('touchstart', function(ev){
+                for (let i = 0; i < ev.changedTouches.length; i++) {
+                    const t = ev.changedTouches[i];
+                    createRipple(t.clientX, t.clientY, Math.max(window.innerWidth, window.innerHeight) * 0.08);
+                }
+            }, {passive: true});
+
+            document.addEventListener('touchmove', function(ev){
+                for (let i = 0; i < ev.changedTouches.length; i++) {
+                    const t = ev.changedTouches[i];
+                    createRipple(t.clientX, t.clientY, 28);
+                }
+            }, {passive: true});
+
+            // Improve touch target for the main button on small screens
+            document.querySelectorAll('.button').forEach(btn => {
+                btn.style.touchAction = 'manipulation';
+            });
+        } else {
+            // Non-touch: ensure cursor circle is visible (in case CSS hid it via media query)
+            if (cursorCircle) cursorCircle.style.display = 'block';
+        }
+
+        // General accessibility: reduce animations when user prefers it
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.documentElement.classList.add('reduce-motion');
+        }
+
+        // Ensure links open on mobile properly (small improvement)
+        document.querySelectorAll('a[href]').forEach(a => {
+            a.addEventListener('touchend', function(){ /* no-op but prevents some ghost clicks in old browsers */ }, {passive: true});
+        });
+    })();
+    </script>
+</body>
+</html>

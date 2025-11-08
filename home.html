@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gauresh's Ultimate AI/ML Portfolio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* --- 1. CSS Variables (The Heart of Theming) --- */
+        :root {
+            --bg-primary: #0A0A15; /* Deeper Space Navy */
+            --bg-secondary: #1C1C2E; 
+            --bg-glass: rgba(30, 30, 45, 0.85); 
+            --text-primary: #EAEAEA; /* Slightly brighter text */
+            --text-secondary: #0A0A15; 
+            --color-gold: #FFC300; /* Brighter, more vibrant gold */
+            --color-gold-light: #FFEFD5;
+            --navbar-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+            --card-bg: rgba(30, 30, 45, 0.4);
+            --card-border: 1px solid rgba(255, 255, 255, 0.08);
+            --transition-speed: 0.4s;
+            --font-body: 'Poppins', sans-serif; 
+            --font-brand: 'Great Vibes', cursive; 
+        }
+
+        /* --- 2. Light Theme Overrides --- */
+        body.light-theme {
+            --bg-primary: #F7F7FC; 
+            --bg-secondary: #FFFFFF;
+            --bg-glass: rgba(255, 255, 255, 0.9); 
+            --text-primary: #1A1A2A; 
+            --text-secondary: #FFFFFF;
+            --navbar-shadow: 0 4px 15px rgba(0, 0, 0, 0.15); 
+            --color-gold: #B8860B; /* Darker, more formal gold */
+            --color-gold-light: #D4AF37;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-border: 1px solid rgba(0, 0, 0, 0.15);
+        }
+
+        /* --- 3. Base & Global Styles (Including Animation Setup) --- */
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Subtle Background Animation */
+        @keyframes subtle-move {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Profile Image Frame Glow Animation (NEW) */
+        @keyframes profile-glow-pulse {
+            0% { box-shadow: 0 0 15px var(--color-gold), inset 0 0 7px rgba(255, 255, 255, 0.1); }
+            50% { box-shadow: 0 0 30px var(--color-gold), inset 0 0 15px rgba(255, 255, 255, 0.2); }
+            100% { box-shadow: 0 0 15px var(--color-gold), inset 0 0 7px rgba(255, 255, 255, 0.1); }
+        }
+        
+        body {
+            font-family: var(--font-body); 
+            margin: 0;
+            padding: 0;
+            background: var(--bg-primary); 
+            color: var(--text-primary); 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color var(--transition-speed), color var(--transition-speed); 
+            overflow-x: hidden;
+            
+            /* Hide default cursor and apply custom cursor */
+            cursor: none; 
+            
+            /* Background Gradient for Subtle Animation */
+            background: radial-gradient(circle at 10% 20%, var(--bg-secondary) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, var(--bg-secondary) 0%, transparent 20%), 
+                        var(--bg-primary);
+            background-size: 200% 200%;
+            animation: subtle-move 20s ease infinite; 
+        }
+        
+        /* Light theme adjustment for background secondary color */
+        body.light-theme {
+            background: radial-gradient(circle at 10% 20%, #EAEAF0 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, #EAEAF0 0%, transparent 20%), 
+                        var(--bg-primary);
+            background-size: 200% 200%;
+            animation: subtle-move 20s ease infinite; 
+        }
+
+        /* --- Custom Cursor Styles (ENHANCED GLOW & CLICK EFFECT) --- */
+        .cursor-dot, .cursor-ring {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            pointer-events: none; /* Crucial: ensures it doesn't interfere with clicks */
+            transform: translate(-50%, -50%);
+            will-change: transform; /* Hint for performance */
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background-color: var(--color-gold);
+            border-radius: 50%;
+            opacity: 1;
+            /* Default Glow - Pulsating gold shine */
+            box-shadow: 0 0 8px var(--color-gold), 0 0 12px rgba(255, 195, 0, 0.4);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease, width 0.3s ease, height 0.3s ease; 
+            animation: cursor-dot-pulse 2s infinite alternate; /* Default pulse */
+        }
+
+        .cursor-ring {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--color-gold);
+            border-radius: 50%;
+            opacity: 0.5;
+            /* Default Glow - Subtler ring shine */
+            box-shadow: 0 0 15px rgba(255, 195, 0, 0.3);
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), 
+                        width 0.3s ease, height 0.3s ease, opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            animation: cursor-ring-pulse 2s infinite alternate; /* Default pulse */
+        }
+
+        @keyframes cursor-dot-pulse {
+            0% { box-shadow: 0 0 8px var(--color-gold), 0 0 12px rgba(255, 195, 0, 0.4); }
+            100% { box-shadow: 0 0 12px var(--color-gold), 0 0 18px rgba(255, 195, 0, 0.6); }
+        }
+        @keyframes cursor-ring-pulse {
+            0% { box-shadow: 0 0 15px rgba(255, 195, 0, 0.3); }
+            100% { box-shadow: 0 0 25px rgba(255, 195, 0, 0.5); }
+        }
+
+        /* Hover state (applied via JS when over interactive elements) - DRAMATIC SHIFT */
+        .cursor-hover .cursor-dot {
+            background-color: var(--text-primary);
+            width: 8px; /* Slightly increase dot size */
+            height: 8px;
+            /* Intense white glow in dark theme */
+            box-shadow: 0 0 15px var(--text-primary), 0 0 25px rgba(234, 234, 234, 0.8); 
+            transform: scale(1.1); /* Quick pulse on interaction */
+            animation: none; /* Disable default pulse on hover */
+        }
+        .cursor-hover .cursor-ring {
+            width: 60px; /* Larger interaction area */
+            height: 60px;
+            opacity: 0.2; /* Make the ring softer/more transparent */
+            border-color: var(--text-primary);
+            /* Wide, soft glow in dark theme */
+            box-shadow: 0 0 40px rgba(234, 234, 234, 0.6); 
+            animation: none; /* Disable default pulse on hover */
+        }
+
+        /* Click/Tap Pulse Effect (NEW) */
+        .cursor-clicked .cursor-dot {
+            transform: scale(1.5); /* Big pulse */
+            opacity: 0; /* Fade out quickly */
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+        .cursor-clicked .cursor-ring {
+            transform: scale(1.2); /* Slight pulse */
+            opacity: 0.1;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+        }
+
+        /* Light Theme Adjustments for Cursor Glow */
+        body.light-theme .cursor-dot {
+             /* Gold glow remains */
+             box-shadow: 0 0 8px var(--color-gold), 0 0 12px rgba(184, 134, 11, 0.4); 
+             animation: cursor-dot-pulse-light 2s infinite alternate;
+        }
+        body.light-theme .cursor-ring {
+             box-shadow: 0 0 15px rgba(184, 134, 11, 0.3);
+             animation: cursor-ring-pulse-light 2s infinite alternate;
+        }
+
+        @keyframes cursor-dot-pulse-light {
+            0% { box-shadow: 0 0 8px var(--color-gold), 0 0 12px rgba(184, 134, 11, 0.4); }
+            100% { box-shadow: 0 0 12px var(--color-gold), 0 0 18px rgba(184, 134, 11, 0.6); }
+        }
+        @keyframes cursor-ring-pulse-light {
+            0% { box-shadow: 0 0 15px rgba(184, 134, 11, 0.3); }
+            100% { box-shadow: 0 0 25px rgba(184, 134, 11, 0.5); }
+        }
+        
+        body.light-theme .cursor-hover .cursor-dot {
+             background-color: var(--text-primary); /* Dark text color */
+             /* Intense dark shadow */
+             box-shadow: 0 0 15px var(--text-primary), 0 0 25px rgba(26, 26, 42, 0.5); 
+        }
+        body.light-theme .cursor-hover .cursor-ring {
+            border-color: var(--text-primary);
+            box-shadow: 0 0 40px rgba(26, 26, 42, 0.3);
+        }
+
+        /* Ensure text inputs retain the text cursor visually */
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            cursor: text;
+        }
+        /* --- End Custom Cursor Styles --- */
+
+        .section {
+            width: 100%;
+            max-width: 1200px; 
+            padding: 80px 40px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 3.2em;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: var(--color-gold);
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            position: relative;
+            padding-bottom: 20px;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--color-gold);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .nav-links, .utility-icons {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .utility-icons li a {
+            text-decoration: none;
+        }
+
+        /* --- Navbar Styling --- */
+        .navbar {
+            position: sticky;
+            top: 20px;
+            z-index: 1000;
+            max-width: 1200px; 
+            width: 90%; 
+            margin: 20px auto;
+            background: var(--bg-glass);
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 30px; 
+            padding: 15px 30px; 
+            box-shadow: var(--navbar-shadow); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            transition: background var(--transition-speed), box-shadow var(--transition-speed); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .brand-name {
+            font-family: var(--font-brand);
+            font-size: 45px; 
+            font-weight: normal;
+            color: var(--color-gold); 
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.5);
+            transition: all var(--transition-speed);
+            flex-shrink: 0; 
+        }
+        
+        .nav-links {
+            display: flex;
+            flex-grow: 1; 
+            justify-content: center; 
+            gap: 25px; 
+        }
+        .nav-links li a {
+            color: var(--text-primary); 
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 18px; 
+            border-radius: 20px; 
+            transition: all var(--transition-speed);
+        }
+        .nav-links li a:hover {
+            color: var(--color-gold); 
+            background-color: rgba(255, 215, 0, 0.15); 
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.7); 
+            transform: scale(1.05);
+        }
+        
+        .utility-icons {
+            display: flex;
+            gap: 15px;
+            font-size: 1.2em; 
+        }
+        .utility-icons li i, .utility-icons li a i {
+            color: var(--text-primary); 
+            transition: color var(--transition-speed), text-shadow var(--transition-speed);
+            padding: 5px; 
+        }
+        .utility-icons li i:hover, .utility-icons li a i:hover {
+            color: var(--color-gold); 
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8); 
+        }
+
+        /* --- Hero Section & Buttons --- */
+        .hero-text h1 {
+            font-size: 5em; 
+            font-weight: 700;
+            color: var(--color-gold);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8); 
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 14px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-speed);
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Primary Button: GOLD SHINE EFFECT */
+        .btn-primary {
+            background: var(--color-gold);
+            color: var(--bg-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary:hover {
+            background-color: var(--color-gold-light); 
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.8); 
+            transform: translateY(-5px) scale(1.02); 
+        }
+        /* Secondary Button: Outline effect */
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-gold);
+            border: 2px solid var(--color-gold);
+        }
+        .btn-secondary:hover {
+            background: var(--color-gold);
+            color: var(--bg-primary);
+            box-shadow: 0 0 35px rgba(255, 215, 0, 0.6); 
+            transform: translateY(-5px) scale(1.02); 
+        }
+
+        /* Profile Image with Glowing Border (ENHANCED WITH ANIMATION) */
+        #profile-image-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            margin-top: 20px;
+            /* Glowing effect */
+            box-shadow: 0 0 15px var(--color-gold), inset 0 0 7px rgba(255, 255, 255, 0.1); 
+            transition: box-shadow var(--transition-speed);
+            animation: profile-glow-pulse 3s infinite alternate ease-in-out; /* Apply animation */
+        }
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+        
+        /* --- RGAi/AI&ML Section Content Styling --- */
+        .rgai-aiml-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+            text-align: left;
+        }
+        .rgai-aiml-text p {
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            border-left: 3px solid var(--color-gold);
+            padding-left: 20px;
+        }
+
+        /* --- SKILLS SECTION STYLES --- */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 40px;
+            width: 100%;
+        }
+        .skill-group {
+            flex: 1 1 300px;
+            background: var(--card-bg);
+            border: var(--card-border);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.4s ease;
+        }
+        .skill-group:hover {
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.3); 
+        }
+        .skill-group h3 i {
+            font-size: 1.2em;
+        }
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .skill-list li {
+            pointer-events: auto; 
+            display: inline-block;
+            margin: 5px 8px 5px 0;
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--color-gold);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background 0.2s ease;
+        }
+        .skill-list li:hover {
+            background: rgba(255, 215, 0, 0.3);
+            color: var(--text-primary);
+        }
+        
+        /* --- PROJECTS SECTION STYLES --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .project-card {
+            background: var(--card-bg);
+            border: var(--card-border);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: left;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+        .project-card h3 {
+            color: var(--color-gold);
+            margin-top: 0;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(255, 195, 0, 0.2);
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .project-card p {
+            font-size: 0.95em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        /* --- CONTACT FORM STYLES --- */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+        .contact-form label {
+            display: block;
+            margin-top: 20px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--color-gold);
+        }
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-primary);
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            /* Ensure text inputs retain the text cursor visually */
+            cursor: text; 
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--color-gold);
+            box-shadow: 0 0 10px rgba(255, 195, 0, 0.6);
+        }
+        .contact-form button {
+            margin-top: 30px;
+            width: 100%;
+            font-size: 1.1em;
+        }
+
+        /* --- Footer remains the same --- */
+        .footer {
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px;
+            margin-top: 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9em;
+        }
+        
+        body.light-theme .footer {
+            border-top-color: rgba(0, 0, 0, 0.1);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- MOBILE RESPONSIVENESS & MENU remains the same --- */
+        @media (min-width: 768px) {
+            .hero-content {
+                display: flex;
+                flex-direction: row; 
+                text-align: left;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .rgai-aiml-content { 
+                flex-direction: row;
+                text-align: left;
+                align-items: flex-start;
+            }
+            .rgai-aiml-text {
+                flex: 1;
+            }
+            #profile-image-container {
+                margin-left: 50px;
+            }
+            #menu-toggle {
+                display: none;
+            }
+            .hero-buttons {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 767px) {
+            /* Remove custom cursor on mobile to preserve touch usability */
+            .cursor-dot, .cursor-ring {
+                display: none;
+            }
+            body {
+                cursor: default;
+            }
+            
+            .navbar {
+                flex-wrap: wrap; 
+                padding: 15px 20px;
+            }
+            .nav-links {
+                display: none; 
+            }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 15px;
+                gap: 5px;
+            }
+            .nav-links.active li a {
+                padding: 10px;
+                text-align: center;
+            }
+            .hero-text h1 {
+                font-size: 3em;
+            }
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+            #profile-image-container {
+                width: 200px;
+                height: 200px;
+                margin: 30px auto 0;
+            }
+            .skills-container {
+                gap: 20px;
+            }
+            .skill-group {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+
+<div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+    
+
+<nav class="navbar">
+        <div class="brand-name">Gauresh</div>
+        
+        <ul class="nav-links" id="mobile-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#rgai-aiml">RGAi & AI/ML</a></li>
+            <li><a href="#skills">Skills</a></li> 
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="navbar-right-section">
+            <ul class="utility-icons">
+                <li id="theme-toggle"><i class="fas fa-moon"></i></li> 
+                <li><a href="https://www.instagram.com/gauresh.khairnar" target="_blank" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a></li>
+                <li id="menu-toggle"><i class="fas fa-bars"></i></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero section">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hello, I'm Gauresh.</h1>
+                <p>An **RGAi Owner** and **AI&ML Engineer** specializing in deploying scalable, cloud-native intelligence systems that drive measurable business value.</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View My Work <i class="fas fa-arrow-right"></i></a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch <i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            
+            <div id="profile-image-container">
+                 
+
+<img src="profile.jpg" 
+                      alt="Gauresh Profile Photo" 
+                      class="profile-photo" 
+                      onerror="this.onerror=null; this.src='https://placehold.co/300x300/1A1A2A/FFC300?text=G+Profile'"> 
+            </div>
+        </div>
+    </section>
+
+    <section id="rgai-aiml" class="rgai-aiml section">
+        <h2 class="section-title">RGAi Owner & AI&ML Engineer</h2>
+        <div class="rgai-aiml-content">
+            <div class="rgai-aiml-text">
+                <p>As the **RGAi Owner**, I translate high-level business needs into concrete, actionable product roadmaps for our proprietary AI platforms. My focus is on **strategic alignment**—ensuring every technical initiative maximizes ROI and solves critical enterprise challenges.</p>
+                <p>My role as an **AI&ML Engineer** involves hands-on development, leveraging Python, **TensorFlow**, and **PyTorch** to build, train, and deploy high-performance models. I excel at engineering robust **MLOps pipelines** on AWS and Azure, facilitating real-time inference and continuous delivery of intelligence systems.</p>
+            </div>
+        </div>
+    </section>
+
+    
+
+<section id="skills" class="skills section">
+        <h2 class="section-title">Technical Expertise</h2>
+        <div class="skills-container">
+
+            <div class="skill-group">
+                <h3><i class="fas fa-brain"></i> AI / Machine Learning</h3>
+                <ul class="skill-list">
+                    <li>Python</li>
+                    <li>TensorFlow</li>
+                    <li>PyTorch</li>
+                    <li>Keras</li>
+                    <li>Scikit-learn</li>
+                    <li>**NLP / LLMs**</li>
+                    <li>Computer Vision</li>
+                    <li>Generative AI</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h3><i class="fas fa-cloud"></i> Cloud & MLOps</h3>
+                <ul class="skill-list">
+                    <li>AWS (Sagemaker)</li>
+                    <li>Azure ML</li>
+                    <li>Docker</li>
+                    <li>**Kubernetes (K8s)**</li>
+                    <li>CI/CD</li>
+                    <li>Terraform</li>
+                    <li>API Development (Flask/FastAPI)</li>
+                </ul>
+            </div>
+
+            <div class="skill-group">
+                <h3><i class="fas fa-database"></i> Data & Engineering</h3>
+                <ul class="skill-list">
+                    <li>SQL / PostgreSQL</li>
+                    <li>NoSQL (MongoDB)</li>
+                    <li>Pandas / NumPy</li>
+                    <li>**Real-time ETL**</li>
+                    <li>Data Visualization</li>
+                    <li>Version Control (Git)</li>
+                    <li>System Design</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="projects" class="projects section">
+        <h2 class="section-title">Key Projects & Achievements</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3><i class="fas fa-comments"></i> Enterprise LLM Fine-Tuning Service</h3>
+                <p>Developed and deployed a custom **Gemma/Llama-based LLM** fine-tuning service on **AWS Sagemaker**. Achieved a **25% reduction** in manual document classification time through optimized prompt engineering and quantization techniques.</p>
+                <a href="#" class="btn btn-secondary">Case Study</a>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-video"></i> Real-time Computer Vision Pipeline</h3>
+                <p>Engineered a high-throughput CV system using **YOLOv8** integrated with video streams for predictive maintenance. Utilized **K8s** and **Docker** for auto-scaling inference endpoints, maintaining **>99.9% uptime** under variable load.</p>
+                <a href="#" class="btn btn-secondary">View Demo</a>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-stream"></i> Scalable Data Feature Store</h3>
+                <p>Designed and implemented a centralized, low-latency feature store using **PostgreSQL** and **FastAPI** for real-time model serving. Reduced model training time by **40%** by standardizing feature extraction across multiple engineering teams.</p>
+                <a href="#" class="btn btn-secondary">Architecture</a>
+            </div>
+            <div class="project-card">
+                <h3><i class="fas fa-cogs"></i> Continuous MLOps Automation</h3>
+                <p>Created end-to-end CI/CD pipelines in Azure DevOps for model lifecycle management. Automated retraining, testing, and deployment, cutting the model deployment cycle time from **2 weeks to 2 days**.</p>
+                <a href="#" class="btn btn-secondary">Read Docs</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact section">
+        <h2 class="section-title">Let's Connect</h2>
+        
+
+<form 
+            class="contact-form" 
+            action="https://formsubmit.co/khairnargauresh01@gmail.com" 
+            method="POST"
+        >
+            
+
+<input type="hidden" name="_formsubmit_id" value="">
+            <input type="hidden" name="_captcha" value="false">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+    </section>
+
+    <footer class="footer">
+        &copy; 2023 Gauresh Portfolio. Built with passion and AI.
+    </footer>
+    
+    <script>
+        // --- Dark/Light Mode & Mobile Menu Logic ---
+        const body = document.body;
+        const toggleButton = document.getElementById('theme-toggle');
+        const icon = toggleButton.querySelector('i');
+        const storedTheme = localStorage.getItem('theme');
+        
+        const menuToggle = document.getElementById('menu-toggle');
+        const navLinks = document.getElementById('mobile-menu');
+
+        // Initial Theme Load
+        if (storedTheme === 'light') {
+            body.classList.add('light-theme');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+
+        // Theme Toggle Handler
+        toggleButton.addEventListener('click', () => {
+            const isLight = body.classList.toggle('light-theme');
+            
+            if (isLight) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Mobile Menu Toggle Handler
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                menuToggle.querySelector('i').classList.remove('fa-bars');
+                menuToggle.querySelector('i').classList.add('fa-times');
+            } else {
+                menuToggle.querySelector('i').classList.remove('fa-times');
+                menuToggle.querySelector('i').classList.add('fa-bars');
+            }
+        });
+
+        // Add fallback images for profile photos
+        const images = document.querySelectorAll('.profile-photo');
+        images.forEach(img => {
+            img.onerror = function() {
+                this.src = 'https://placehold.co/300x300/1A1A2A/FFC300?text=G+Profile';
+                this.onerror = null; // Prevent infinite loop
+            };
+        });
+        
+        // --- Custom Cursor Logic (ENHANCED) ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        // Select all elements that should trigger a cursor change
+        const interactiveElements = document.querySelectorAll('a, button, .btn, #theme-toggle, #menu-toggle, .skill-list li, .utility-icons li i');
+
+        // Cursor movement variables (for the trailing effect)
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+        const speed = 0.15; // Speed for the ring to catch up to the mouse position
+
+        document.addEventListener('mousemove', (e) => {
+            // 1. Update the position for the fast dot immediately
+            cursorDot.style.left = e.clientX + 'px';
+            cursorDot.style.top = e.clientY + 'px';
+
+            // 2. Update the target position for the slow ring
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        // Animation loop for the smooth trailing effect
+        const animateCursor = () => {
+            // Check if the cursor elements exist (they are hidden on mobile)
+            if (cursorRing && window.innerWidth >= 768) { // Added window width check
+                // Calculate new position for the ring based on speed
+                // This creates the smooth, delayed effect
+                ringX += (mouseX - ringX) * speed;
+                ringY += (mouseY - ringY) * speed;
+
+                cursorRing.style.left = ringX + 'px';
+                cursorRing.style.top = ringY + 'px';
+            }
+
+            requestAnimationFrame(animateCursor);
+        };
+
+        // Only start the animation loop if we are not on a mobile device (where cursor is hidden)
+        if (window.innerWidth >= 768) {
+             animateCursor();
+        }
+
+        // Click/Tap Feedback (NEW)
+        document.addEventListener('mousedown', () => {
+            cursorDot.classList.add('cursor-clicked');
+            cursorRing.classList.add('cursor-clicked');
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursorDot.classList.remove('cursor-clicked');
+            cursorRing.classList.remove('cursor-clicked');
+        });
+
+
+        // Interactivity Hover Logic
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorDot.classList.add('cursor-hover');
+                cursorRing.classList.add('cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorDot.classList.remove('cursor-hover');
+                cursorRing.classList.remove('cursor-hover');
+            });
+        });
+
+        // --- End Custom Cursor Logic ---
+    </script>
+</body>
+</html>
